@@ -1,0 +1,13 @@
+-- CREATE TABLE IF NOT EXISTS tax_central.tax
+-- (
+--     id UUID PRIMARY KEY,
+--     order_id UUID NOT NULL,
+--     customer_id UUID NOT NULL,
+--     transaction_code VARCHAR(100) NOT NULL,
+--     status VARCHAR(100) NOT NULL,
+--     transaction_model_json JSONB NOT NULL,
+--     created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+--     updated_at TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+--     created_by VARCHAR(100) NOT NULL DEFAULT CURRENT_USER,
+--     updated_by VARCHAR(100) NOT NULL DEFAULT CURRENT_USER
+-- );

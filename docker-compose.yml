@@ -1,0 +1,39 @@
+version: '3.4'
+
+name: game-engine-service
+
+services:
+  game-engine-service:
+    container_name: game-engine-service
+    image: 'game-engine-service:latest'
+    ports:
+      - "9097:9097"
+    expose:
+      - 9097
+    depends_on:
+      psql-game-engine-service:
+        condition: service_healthy
+    environment:
+      - POSTGRES_JDBC_URL=jdbc:postgresql://psql-game-engine-service:5432/postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+      - SPRING_PROFILES_ACTIVE=local
+
+  psql-game-engine-service:
+    container_name: psql-game-engine-service
+    image: 'postgres:14.7'
+    restart: always
+    ports:
+      - "5443:5432"
+    expose:
+      - 5439
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -1,0 +1,54 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRES_JDBC_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: db/changelog/db.changelog.master.yml
+    enabled: false
+#    enabled: true
+
+server:
+  port: 9097
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev, stage, prod
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRES_JDBC_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: db/changelog/db.changelog.master.yml
+    enabled: false
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
